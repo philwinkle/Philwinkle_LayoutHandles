@@ -10,6 +10,7 @@ class Philwinkle_LayoutHandles_Model_Observer
      * @todo  Implement as a strategy pattern
      * @todo  Unify preg_match and stripos positions
      * @param Varien_Event_Observer $observer
+     * @return  Philwinkle_LayoutHandles_Model_Observer
      */
     public function addHandles(Varien_Event_Observer $observer)
     {
@@ -19,6 +20,10 @@ class Philwinkle_LayoutHandles_Model_Observer
         return $this;
     }
 
+    /**
+     * Collect defined handles from within this observer
+     * @return Philwinkle_LayoutHandles_Model_Observer 
+     */
     public function collectHandles()
     {
         $this->operatingSystemHandle();
@@ -27,6 +32,10 @@ class Philwinkle_LayoutHandles_Model_Observer
         return $this;
     }
 
+    /**
+     * Process defined handles and add to the loaded layout update
+     * @return Philwinkle_LayoutHandles_Model_Observer
+     */
     public function processHandles()
     {
         foreach($this->handles as $handle){
@@ -36,6 +45,16 @@ class Philwinkle_LayoutHandles_Model_Observer
         return $this;
     }
 
+
+    /**
+     * Add a handle for operating systems, e.g.:
+     * <layout>
+     *   <operating_system_linux>
+     *   </operating_system_linux>
+     * </layout>
+     * @see  http://stackoverflow.com/a/4105118/582138
+     * @return Philwinkle_LayoutHandles_Model_Observer
+     */
     public function operatingSystemHandle()
     {
         $agent = $_SERVER['HTTP_USER_AGENT'];
@@ -47,12 +66,23 @@ class Philwinkle_LayoutHandles_Model_Observer
         } elseif(preg_match('/Mac/',$agent)){
             $os = 'osx';
         } else {
-            $os = 'unknown';
+            $os = null;
         }
 
-        $this->handles[] = 'operating_system_' . $os;
+        if($os){
+            $this->handles[] = 'operating_system_' . $os;
+        }
     }
 
+    /**
+     * Add layout handle for browser type, e.g.:
+     * <layout>
+     *   <browser_firefox>
+     *   </browser_firefox>
+     * </layout>
+     * @see  http://stackoverflow.com/a/9693781/582138
+     * @return Philwinkle_LayoutHandles_Model_Observer
+     */
     public function browserHandle()
     {
         $agent = $_SERVER['HTTP_USER_AGENT'];
@@ -69,9 +99,15 @@ class Philwinkle_LayoutHandles_Model_Observer
             $agent = 'chrome';
         } elseif ( stripos($agent, 'Safari') !== false ) {
             $agent = 'safari';
+        } else {
+            $agent = null;
         }
 
-        $this->handles[] = 'browser_' . $agent;
+        if($agent){
+            $this->handles[] = 'browser_' . $agent;
+        }
+
+        return $this;
     }
 
 }
