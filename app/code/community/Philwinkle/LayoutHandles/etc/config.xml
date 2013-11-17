@@ -9,10 +9,10 @@
         <events>
             <controller_action_layout_load_before>
                 <observers>
-                    <philwinkle_deadlockretry>
+                    <philwinkle_layouthandles_addhandles>
                         <class>Philwinkle_LayoutHandles_Model_Observer</class>
-                        <method>addHandle</method>
-                    </philwinkle_deadlockretry>
+                        <method>addHandles</method>
+                    </philwinkle_layouthandles_addhandles>
                 </observers>
             </controller_action_layout_load_before>
         </events>
