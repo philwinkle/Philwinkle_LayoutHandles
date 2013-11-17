@@ -1,0 +1,4 @@
+#Philwinkle_LayoutHandles
+app/code/community/Philwinkle/LayoutHandles/etc/*.xml       app/code/community/Philwinkle/LayoutHandles/etc/
+app/code/community/Philwinkle/LayoutHandles/Model/*.php     app/code/community/Philwinkle/LayoutHandles/Model/
+app/etc/modules/*.xml                                       app/etc/modules/
